@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليلك في شراء الحاسوب وقطع التجميعة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c14;
+    --bg2: #0d1220;
+    --card: #111827;
+    --card2: #151d2e;
+    --accent: #00d4ff;
+    --accent2: #ff6b35;
+    --accent3: #a855f7;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(0,212,255,0.15);
+    --glow: 0 0 30px rgba(0,212,255,0.2);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── ANIMATED BG ─── */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+  .bg-orb {
+    position: fixed; border-radius: 50%; filter: blur(120px);
+    pointer-events: none; z-index: 0; animation: float 8s ease-in-out infinite;
+  }
+  .orb1 { width:500px; height:500px; background:rgba(0,212,255,0.06); top:-100px; left:-100px; }
+  .orb2 { width:400px; height:400px; background:rgba(168,85,247,0.06); bottom:-50px; right:-50px; animation-delay:-4s; }
+  .orb3 { width:300px; height:300px; background:rgba(255,107,53,0.05); top:50%; left:50%; animation-delay:-2s; }
+  @keyframes float {
+    0%,100% { transform: translate(0,0); }
+    50% { transform: translate(30px, -30px); }
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: relative; z-index: 10;
+    padding: 20px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    background: rgba(8,12,20,0.8);
+    position: sticky; top: 0;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 0 20px rgba(0,212,255,0.3);
+  }
+  .logo-text { font-size: 18px; font-weight: 900; color: #fff; line-height: 1.2; }
+  .logo-sub { font-size: 11px; color: var(--accent); font-weight: 400; }
+
+  nav { display: flex; gap: 8px; flex-wrap: wrap; }
+  nav a {
+    color: var(--muted); text-decoration: none;
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  nav a:hover {
+    color: var(--accent); border-color: var(--border);
+    background: rgba(0,212,255,0.05);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 100px 40px 80px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3);
+    color: var(--accent); padding: 8px 20px; border-radius: 50px;
+    font-size: 13px; font-weight: 600; margin-bottom: 30px;
+    animation: pulse-border 2s ease-in-out infinite;
+  }
+  @keyframes pulse-border {
+    0%,100% { box-shadow: 0 0 0 0 rgba(0,212,255,0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(0,212,255,0); }
+  }
+  .hero h1 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800; line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto 40px;
+    line-height: 1.8;
+  }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #0099bb);
+    color: #000; padding: 14px 32px; border-radius: 12px;
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,212,255,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.4); }
+  .btn-secondary {
+    background: var(--card); color: var(--text);
+    padding: 14px 32px; border-radius: 12px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    border: 1px solid var(--border); transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── STATS ─── */
+  .stats {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+    padding: 40px 40px 80px;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 2.5rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* ─── SECTION TITLE ─── */
+  .section-title {
+    text-align: center; padding: 60px 40px 10px;
+    position: relative; z-index: 1;
+  }
+  .section-title h2 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 2rem; font-weight: 800; margin-bottom: 10px;
+  }
+  .section-title p { color: var(--muted); font-size: 15px; }
+  .section-line {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    margin: 15px auto 50px; border-radius: 2px;
+  }
+
+  /* ─── CARDS GRID ─── */
+  .cards-grid {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px; padding: 0 40px 80px; max-width: 1400px; margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 30px;
+    transition: all 0.3s; cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(0,212,255,0.03));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,0.4); box-shadow: var(--glow); }
+  .card:hover::before { opacity: 1; }
+
+  .card-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; margin-bottom: 20px;
+  }
+  .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .card p { color: var(--muted); font-size: 14px; line-height: 1.8; }
+
+  .tag {
+    display: inline-block; margin-top: 16px;
+    background: rgba(0,212,255,0.1); color: var(--accent);
+    border: 1px solid rgba(0,212,255,0.2);
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  }
+
+  /* ─── DEEP SECTIONS ─── */
+  .deep-section {
+    position: relative; z-index: 1;
+    max-width: 1400px; margin: 0 auto; padding: 0 40px 80px;
+  }
+  .deep-card {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 24px; padding: 40px;
+    margin-bottom: 30px;
+  }
+  .deep-card h3 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.5rem; font-weight: 800; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .deep-card h3 span { font-size: 1.8rem; }
+
+  .spec-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px; margin-top: 20px;
+  }
+  .spec-item {
+    background: rgba(0,212,255,0.04);
+    border: 1px solid rgba(0,212,255,0.1);
+    border-radius: 12px; padding: 16px;
+  }
+  .spec-item .spec-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .spec-item .spec-val { font-size: 15px; font-weight: 700; color: var(--accent); }
+
+  /* ─── COMPARISON TABLE ─── */
+  .table-wrap {
+    overflow-x: auto; margin-top: 20px;
+  }
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    background: rgba(0,212,255,0.1);
+    color: var(--accent); padding: 14px 20px;
+    text-align: right; font-weight: 700;
+    border-bottom: 2px solid rgba(0,212,255,0.2);
+  }
+  td {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text);
+  }
+  tr:hover td { background: rgba(0,212,255,0.03); }
+  .badge-good { background: rgba(34,197,94,0.15); color: #22c55e; padding: 3px 10px; border-radius: 20px; font-size: 12px; }
+  .badge-mid  { background: rgba(234,179,8,0.15);  color: #eab308; padding: 3px 10px; border-radius: 20px; font-size: 12px; }
+  .badge-best { background: rgba(0,212,255,0.15);  color: var(--accent); padding: 3px 10px; border-radius: 20px; font-size: 12px; }
+
+  /* ─── BUILDS ─── */
+  .builds-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px; margin-top: 30px;
+  }
+  .build-card {
+    border-radius: 20px; padding: 30px;
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+  }
+  .build-budget  { background: linear-gradient(135deg, #0d1a0d, #111827); border-color: rgba(34,197,94,0.3); }
+  .build-mid     { background: linear-gradient(135deg, #1a0d14, #111827); border-color: rgba(0,212,255,0.3); }
+  .build-high    { background: linear-gradient(135deg, #1a0d1a, #111827); border-color: rgba(168,85,247,0.3); }
+
+  .build-badge {
+    display: inline-block; padding: 5px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 700; margin-bottom: 20px;
+  }
+  .bb-green  { background: rgba(34,197,94,0.2);   color: #22c55e; }
+  .bb-cyan   { background: rgba(0,212,255,0.2);   color: var(--accent); }
+  .bb-purple { background: rgba(168,85,247,0.2);  color: #a855f7; }
+
+  .build-price {
+    font-size: 2rem; font-weight: 900; margin: 10px 0 20px;
+  }
+  .build-parts { list-style: none; }
+  .build-parts li {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+  }
+  .build-parts li:last-child { border: none; }
+  .part-name { color: var(--muted); }
+  .part-val  { font-weight: 600; }
+
+  /* ─── TIPS ─── */
+  .tips-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px; margin-top: 30px;
+  }
+  .tip-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px;
+    display: flex; gap: 16px; align-items: flex-start;
+    transition: all 0.3s;
+  }
+  .tip-card:hover { border-color: rgba(168,85,247,0.4); box-shadow: 0 0 20px rgba(168,85,247,0.1); }
+  .tip-num {
+    width: 36px; height: 36px; min-width: 36px;
+    background: linear-gradient(135deg, var(--accent3), #7c3aed);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; color: #fff;
+  }
+  .tip-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .tip-card p  { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative; z-index: 1;
+    text-align: center; padding: 60px 40px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 14px;
+  }
+  footer .footer-logo {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.5rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  footer p { line-height: 2; }
+
+  /* ─── SCROLL ANIMATION ─── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+  .reveal.show { opacity: 1; transform: translateY(0); }
+
+  @media(max-width:768px) {
+    header { padding: 16px 20px; }
+    nav { display: none; }
+    .hero { padding: 60px 20px 40px; }
+    .cards-grid, .deep-section, .stats { padding-right: 20px; padding-left: 20px; }
+    .section-title { padding: 40px 20px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🖥️</div>
+    <div>
+      <div class="logo-text">دليلك</div>
+      <div class="logo-sub">في شراء الحاسوب وقطع التجميعة</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#cpu">المعالجات</a>
+    <a href="#gpu">كروت الشاشة</a>
+    <a href="#parts">القطع</a>
+    <a href="#builds">تجميعات</a>
+    <a href="#tips">نصائح</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🚀 دليلك الشامل لتجميع الحاسوب</div>
+  <h1>اختر قطعك<br><span>بثقة واحترافية</span></h1>
+  <p>كل ما تحتاجه لتجميع حاسوب بمواصفات تناسب ميزانيتك واحتياجاتك، من المعالج إلى كرت الشاشة وكل قطعة بينهما</p>
+  <div class="hero-btns">
+    <a href="#builds" class="btn-primary">🎮 شوف التجميعات</a>
+    <a href="#parts" class="btn-secondary">📖 تعلم القطع</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">10+</div>
+    <div class="stat-label">أنواع قطع مشروحة</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3</div>
+    <div class="stat-label">تجميعات جاهزة</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">محتوى بالعربي</div>
+  </div>
+</div>
+
+<!-- SECTION: المعالجات -->
+<div class="section-title" id="cpu">
+  <h2>🧠 المعالجات (CPU)</h2>
+  <p>دماغ الحاسوب — كل شيء يمر من هنا</p>
+  <div class="section-line"></div>
+</div>
+
+<div class="cards-grid reveal">
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(0,116,217,0.2),rgba(0,116,217,0.05)); color:#0074d9">🔵</div>
+    <h3>Intel Core i سلسلة</h3>
+    <p>إنتل هي الأشهر في سوق المعالجات. السلاسل الحديثة Core i5 / i7 / i9 تقدم أداءً ممتازاً في الألعاب والتحرير والبرمجة. الجيل الـ14 و الـ13 من أفضل الخيارات حالياً.</p>
+    <span class="tag">Intel Core Ultra</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(237,28,36,0.2),rgba(237,28,36,0.05)); color:#ed1c24">🔴</div>
+    <h3>AMD Ryzen سلسلة</h3>
+    <p>AMD قدمت منافساً قوياً جداً. Ryzen 5 / 7 / 9 تتميز بعدد نوى عالٍ وسعر تنافسي. مثالية للمهام المتعددة والبرامج التي تستفيد من النوى الكثيرة مثل Blender.</p>
+    <span class="tag">Ryzen 7000 Series</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(168,85,247,0.2),rgba(168,85,247,0.05)); color:#a855f7">⚡</div>
+    <h3>معالجات اللابتوب</h3>
+    <p>نسخ مخصصة للأجهزة المحمولة مثل Intel H وAMD HX. توازن بين الأداء واستهلاك الطاقة. مهم لاختيار لابتوب مناسب للعمل أو الألعاب.</p>
+    <span class="tag">Mobile CPUs</span>
+  </div>
+</div>
+
+<!-- CPU Comparison Table -->
+<div class="deep-section reveal">
+  <div class="deep-card">
+    <h3><span>📊</span> مقارنة أشهر المعالجات 2024</h3>
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>المعالج</th><th>النوى / الخيوط</th><th>السرعة القصوى</th><th>الاستخدام الأنسب</th><th>التقييم</th>
+        </tr>
+        <tr>
+          <td>Intel Core i5-13600K</td><td>14 / 20</td><td>5.1 GHz</td><td>الألعاب والبرمجة</td><td><span class="badge-good">ممتاز للمبتدئين</span></td>
+        </tr>
+        <tr>
+          <td>Intel Core i7-14700K</td><td>20 / 28</td><td>5.6 GHz</td><td>الألعاب والتحرير</td><td><span class="badge-mid">قيمة عالية</span></td>
+        </tr>
+        <tr>
+          <td>Intel Core i9-14900K</td><td>24 / 32</td><td>6.0 GHz</td><td>أداء مطلق</td><td><span class="badge-best">الأفضل</span></td>
+        </tr>
+        <tr>
+          <td>AMD Ryzen 5 7600X</td><td>6 / 12</td><td>5.3 GHz</td><td>الألعاب الاقتصادية</td><td><span class="badge-good">اقتصادي وقوي</span></td>
+        </tr>
+        <tr>
+          <td>AMD Ryzen 7 7700X</td><td>8 / 16</td><td>5.4 GHz</td><td>إنتاجية متوازنة</td><td><span class="badge-mid">متوازن</span></td>
+        </tr>
+        <tr>
+          <td>AMD Ryzen 9 7950X</td><td>16 / 32</td><td>5.7 GHz</td><td>عمل احترافي</td><td><span class="badge-best">الأقوى</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION: كروت الشاشة -->
+<div class="section-title" id="gpu">
+  <h2>🎮 كروت الشاشة (GPU)</h2>
+  <p>أهم قطعة للألعاب وتصميم الجرافيك والذكاء الاصطناعي</p>
+  <div class="section-line"></div>
+</div>
+
+<div class="cards-grid reveal">
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(118,185,0,0.2),rgba(118,185,0,0.05)); color:#76b900">💚</div>
+    <h3>NVIDIA GeForce RTX</h3>
+    <p>الأقوى في السوق حالياً. تقنية DLSS تتيح رفع الدقة بالذكاء الاصطناعي. Ray Tracing للإضاءة الواقعية. RTX 4060 للمتوسطين وRTX 4090 للمحترفين.</p>
+    <span class="tag">RTX 4000 Series</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(237,28,36,0.2),rgba(237,28,36,0.05)); color:#ed1c24">❤️</div>
+    <h3>AMD Radeon RX</h3>
+    <p>منافس قوي بأسعار أفضل في الفئات المتوسطة. تقنية FSR مجانية وتعمل على كروت قديمة. RX 7600 و RX 7800 XT خيارات رائعة للقيمة مقابل السعر.</p>
+    <span class="tag">RX 7000 Series</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(0,180,210,0.2),rgba(0,180,210,0.05)); color:#00b4d2">🔷</div>
+    <h3>Intel Arc</h3>
+    <p>الداخل الجديد! Intel Arc A770 وA750 يقدمان قيمة ممتازة للميزانية المحدودة. تحسنت التعريفات كثيراً وباتت خياراً جدياً للألعاب بدقة 1080p.</p>
+    <span class="tag">Arc A-Series</span>
+  </div>
+</div>
+
+<!-- GPU Table -->
+<div class="deep-section reveal">
+  <div class="deep-card">
+    <h3><span>🖥️</span> مقارنة كروت الشاشة حسب الفئة</h3>
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>الكرت</th><th>الـ VRAM</th><th>دقة الألعاب المثلى</th><th>السعر التقريبي</th><th>التقييم</th>
+        </tr>
+        <tr><td>RTX 4060</td><td>8GB</td><td>1080p / 1440p</td><td>~$299</td><td><span class="badge-good">للمبتدئين</span></td></tr>
+        <tr><td>RTX 4070</td><td>12GB</td><td>1440p</td><td>~$599</td><td><span class="badge-mid">متوسط+</span></td></tr>
+        <tr><td>RTX 4070 Ti</td><td>12GB</td><td>1440p / 4K</td><td>~$799</td><td><span class="badge-mid">متقدم</span></td></tr>
+        <tr><td>RTX 4080</td><td>16GB</td><td>4K</td><td>~$999</td><td><span class="badge-best">رهيب</span></td></tr>
+        <tr><td>RTX 4090</td><td>24GB</td><td>4K Ultra</td><td>~$1,599</td><td><span class="badge-best">الأفضل</span></td></tr>
+        <tr><td>RX 7900 XTX</td><td>24GB</td><td>4K</td><td>~$899</td><td><span class="badge-best">قيمة ممتازة</span></td></tr>
+        <tr><td>RX 7800 XT</td><td>16GB</td><td>1440p</td><td>~$499</td><td><span class="badge-good">موصى به</span></td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION: باقي القطع -->
+<div class="section-title" id="parts">
+  <h2>🔧 قطع الحاسوب الأساسية</h2>
+  <p>كل قطعة لها دور — لا تستهن بأي منها</p>
+  <div class="section-line"></div>
+</div>
+
+<div class="cards-grid reveal">
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(251,191,36,0.2),rgba(251,191,36,0.05)); color:#fbbf24">🟡</div>
+    <h3>اللوحة الأم (Motherboard)</h3>
+    <p>عمود فقرة الجهاز. تربط كل القطع ببعض. يجب أن تكون متوافقة مع المعالج. انتبه لـ Socket Type وعدد منافذ RAM وسرعتها المدعومة وميزات PCIe.</p>
+    <span class="tag">B650 / Z790</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(16,185,129,0.05)); color:#10b981">🟢</div>
+    <h3>الذاكرة العشوائية (RAM)</h3>
+    <p>للألعاب: 16GB كافية، 32GB مثالية. للعمل الإبداعي والتحرير: 32-64GB. سرعة DDR5 6000MHz أو DDR4 3600MHz هي النقطة المثالية لأفضل أداء.</p>
+    <span class="tag">DDR5 / DDR4</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(0,212,255,0.05)); color:var(--accent)">💾</div>
+    <h3>التخزين (Storage)</h3>
+    <p>SSD NVMe Gen4 هو المعيار الحالي. أسرع بكثير من HDD. للألعاب: 1TB كبداية. Samsung 990 Pro وWD Black SN850X من أفضل الخيارات. HDD للأرشيف فقط.</p>
+    <span class="tag">NVMe Gen4 SSD</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(239,68,68,0.2),rgba(239,68,68,0.05)); color:#ef4444">🔴</div>
+    <h3>وحدة الإمداد (PSU)</h3>
+    <p>لا تتهاون فيها! PSU رديء يتلف باقي القطع. اختر شهادة 80 Plus Gold على الأقل. احسب استهلاك قطعك وأضف 20% احتياطياً. Corsair وSeaSonic الأفضل.</p>
+    <span class="tag">80+ Gold / Platinum</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(168,85,247,0.2),rgba(168,85,247,0.05)); color:#a855f7">🟣</div>
+    <h3>التبريد (Cooling)</h3>
+    <p>Air Cooler مثل Noctua NH-D15 يناسب معظم المعالجات. AIO (تبريد مائي) للمعالجات القوية أو من يريد حرارة أقل. أهم من يتجاهله الكثيرون!</p>
+    <span class="tag">AIO / Air Cooling</span>
+  </div>
+  <div class="card">
+    <div class="card-icon" style="background:linear-gradient(135deg,rgba(255,107,53,0.2),rgba(255,107,53,0.05)); color:var(--accent2)">🟠</div>
+    <h3>الهيكل (Case)</h3>
+    <p>اختر هيكلاً يسمح بتدفق هواء جيد (Airflow Case). تأكد من توافق الحجم مع اللوحة الأم (ATX / mATX). مراوح جانبية مهمة لخفض الحرارة الداخلية.</p>
+    <span class="tag">ATX / Mid-Tower</span>
+  </div>
+</div>
+
+<!-- Additional parts -->
+<div class="deep-section reveal">
+  <div class="deep-card">
+    <h3><span>🖥️</span> الشاشة (Monitor) — أهم ما قد تنساه</h3>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">الدقة</div><div class="spec-val">1080p / 1440p / 4K</div></div>
+      <div class="spec-item"><div class="spec-label">معدل التحديث</div><div class="spec-val">144Hz - 360Hz</div></div>
+      <div class="spec-item"><div class="spec-label">نوع اللوحة</div><div class="spec-val">IPS / VA / OLED</div></div>
+      <div class="spec-item"><div class="spec-label">وقت الاستجابة</div><div class="spec-val">1ms - 5ms</div></div>
+      <div class="spec-item"><div class="spec-label">تقنية التزامن</div><div class="spec-val">G-Sync / FreeSync</div></div>
+      <div class="spec-item"><div class="spec-label">الحجم</div><div class="spec-val">24" - 34" (Ultrawide)</div></div>
+    </div>
+    <p style="color:var(--muted);font-size:14px;margin-top:20px;line-height:1.8">
+      💡 <strong style="color:var(--text)">نصيحة:</strong> لا تشتري RTX 4090 وتضعها أمام شاشة 60Hz. الشاشة هي ما تراه يومياً — استثمر فيها. IPS للألوان الجميلة، VA للتباين، OLED للمطلق في كل شيء.
+    </p>
+  </div>
+</div>
+
+<!-- SECTION: التجميعات -->
+<div class="section-title" id="builds">
+  <h2>⚡ تجميعات جاهزة</h2>
+  <p>3 تجميعات لكل ميزانية — جهّز قطعك الآن</p>
+  <div class="section-line"></div>
+</div>
+
+<div class="deep-section reveal">
+  <div class="builds-grid">
+    <!-- Budget -->
+    <div class="build-card build-budget">
+      <div class="build-badge bb-green">💰 اقتصادية</div>
+      <h3 style="font-size:1.3rem;font-weight:800">تجميعة المبتدئ</h3>
+      <div class="build-price" style="color:#22c55e">~$600 - $700</div>
+      <ul class="build-parts">
+        <li><span class="part-name">المعالج</span><span class="part-val">AMD Ryzen 5 7600</span></li>
+        <li><span class="part-name">كرت الشاشة</span><span class="part-val">RX 7600 8GB</span></li>
+        <li><span class="part-name">اللوحة الأم</span><span class="part-val">B650 Micro ATX</span></li>
+        <li><span class="part-name">الرام</span><span class="part-val">16GB DDR5 5200</span></li>
+        <li><span class="part-name">التخزين</span><span class="part-val">1TB NVMe SSD</span></li>
+        <li><span class="part-name">الإمداد</span><span class="part-val">650W 80+ Bronze</span></li>
+        <li><span class="part-name">التبريد</span><span class="part-val">Stock + Tower Cooler</span></li>
+      </ul>
+      <p style="color:#22c55e;font-size:13px;margin-top:16px">✅ ألعاب 1080p بسلاسة — مثالي للبداية</p>
+    </div>
+
+    <!-- Mid -->
+    <div class="build-card build-mid">
+      <div class="build-badge bb-cyan">🎮 متوسطة+</div>
+      <h3 style="font-size:1.3rem;font-weight:800">تجميعة الجيمر</h3>
+      <div class="build-price" style="color:var(--accent)">~$1,100 - $1,300</div>
+      <ul class="build-parts">
+        <li><span class="part-name">المعالج</span><span class="part-val">Intel Core i5-13600K</span></li>
+        <li><span class="part-name">كرت الشاشة</span><span class="part-val">RTX 4070 12GB</span></li>
+        <li><span class="part-name">اللوحة الأم</span><span class="part-val">Z790 ATX</span></li>
+        <li><span class="part-name">الرام</span><span class="part-val">32GB DDR5 6000</span></li>
+        <li><span class="part-name">التخزين</span><span class="part-val">2TB NVMe Gen4</span></li>
+        <li><span class="part-name">الإمداد</span><span class="part-val">750W 80+ Gold</span></li>
+        <li><span class="part-name">التبريد</span><span class="part-val">AIO 240mm</span></li>
+      </ul>
+      <p style="color:var(--accent);font-size:13px;margin-top:16px">✅ ألعاب 1440p ممتازة + تحرير فيديو</p>
+    </div>
+
+    <!-- High-end -->
+    <div class="build-card build-high">
+      <div class="build-badge bb-purple">👑 احترافية</div>
+      <h3 style="font-size:1.3rem;font-weight:800">تجميعة المحترف</h3>
+      <div class="build-price" style="color:#a855f7">~$2,500 - $3,000</div>
+      <ul class="build-parts">
+        <li><span class="part-name">المعالج</span><span class="part-val">Intel Core i9-14900K</span></li>
+        <li><span class="part-name">كرت الشاشة</span><span class="part-val">RTX 4080 Super 16GB</span></li>
+        <li><span class="part-name">اللوحة الأم</span><span class="part-val">Z790 ATX Premium</span></li>
+        <li><span class="part-name">الرام</span><span class="part-val">64GB DDR5 6400</span></li>
+        <li><span class="part-name">التخزين</span><span class="part-val">2TB + 4TB NVMe</span></li>
+        <li><span class="part-name">الإمداد</span><span class="part-val">1000W 80+ Platinum</span></li>
+        <li><span class="part-name">التبريد</span><span class="part-val">AIO 360mm RGB</span></li>
+      </ul>
+      <p style="color:#a855f7;font-size:13px;margin-top:16px">✅ 4K — تحرير 4K — AI — بث احترافي</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION: نصائح -->
+<div class="section-title" id="tips">
+  <h2>💡 نصائح قبل الشراء</h2>
+  <p>اقرأها قبل ما تدفع فلوسك</p>
+  <div class="section-line"></div>
+</div>
+
+<div class="deep-section reveal">
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-num">1</div>
+      <div>
+        <h4>حدد هدفك أولاً</h4>
+        <p>ألعاب فقط؟ تحرير فيديو؟ برمجة؟ كل هدف له متطلبات مختلفة. لا تشتري معالج 24 نواة إذا كنت تلعب فقط.</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">2</div>
+      <div>
+        <h4>كرت الشاشة = 40% من الميزانية</h4>
+        <p>للألعاب، كرت الشاشة هو الأهم. وزّع ميزانيتك: GPU 40% / CPU 20% / باقي القطع 40%.</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">3</div>
+      <div>
+        <h4>تحقق من التوافق</h4>
+        <p>المعالج يجب أن يتوافق مع اللوحة الأم (Socket). استخدم موقع PCPartPicker للتأكد من توافق كل القطع.</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">4</div>
+      <div>
+        <h4>لا تتهاون في PSU</h4>
+        <p>شراء PSU رخيص قد يكلفك قطعك كلها. الحد الأدنى 80+ Gold من ماركة معروفة كـ Corsair أو SeaSonic.</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">5</div>
+      <div>
+        <h4>الرام بالزوج دائماً</h4>
+        <p>شراء 2×8GB أفضل من 1×16GB بسبب تقنية Dual Channel التي ترفع الأداء بشكل ملحوظ.</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">6</div>
+      <div>
+        <h4>انتظر التخفيضات</h4>
+        <p>Black Friday وAmazon Prime Day مواسم ممتازة لشراء القطع. أسعار كروت الشاشة تتغير كثيراً.</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">7</div>
+      <div>
+        <h4>SSD لا HDD للنظام</h4>
+        <p>لا تثبت نظام التشغيل على HDD عام 2024. حتى أرخص SSD NVMe سيحسن تجربتك بشكل هائل.</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">8</div>
+      <div>
+        <h4>الحرارة = عمر أطول</h4>
+        <p>المعالج الحار يتدهور بسرعة. استثمر في تبريد جيد واستخدم Thermal Paste عالي الجودة عند التركيب.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOSSARY -->
+<div class="section-title">
+  <h2>📚 قاموس المصطلحات</h2>
+  <p>كل مصطلح قد تصادفه وأنت تتسوق</p>
+  <div class="section-line"></div>
+</div>
+
+<div class="deep-section reveal">
+  <div class="deep-card">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+      <div class="spec-item"><div class="spec-label">TDP</div><div class="spec-val" style="color:var(--text);font-size:13px">استهلاك الطاقة الحرارية — كلما زاد تحتاج تبريداً أفضل</div></div>
+      <div class="spec-item"><div class="spec-label">PCIe</div><div class="spec-val" style="color:var(--text);font-size:13px">الناقل الرئيسي لكرت الشاشة — Gen4 و Gen5 الأسرع</div></div>
+      <div class="spec-item"><div class="spec-label">VRAM</div><div class="spec-val" style="color:var(--text);font-size:13px">ذاكرة كرت الشاشة — أهم لـ 4K والتصميم ثلاثي الأبعاد</div></div>
+      <div class="spec-item"><div class="spec-label">Bottleneck</div><div class="spec-val" style="color:var(--text);font-size:13px">عندما قطعة تُبطئ الأخرى — جمّع بشكل متوازن</div></div>
+      <div class="spec-item"><div class="spec-label">OC / Overclock</div><div class="spec-val" style="color:var(--text);font-size:13px">رفع سرعة القطعة فوق الافتراضي للحصول على أداء أعلى</div></div>
+      <div class="spec-item"><div class="spec-label">POST</div><div class="spec-val" style="color:var(--text);font-size:13px">فحص ذاتي عند التشغيل — إذا فشل لن يبدأ الجهاز</div></div>
+      <div class="spec-item"><div class="spec-label">M.2 Slot</div><div class="spec-val" style="color:var(--text);font-size:13px">منفذ SSD NVMe الحديث — أسرع من SATA بمراحل</div></div>
+      <div class="spec-item"><div class="spec-label">RGB</div><div class="spec-val" style="color:var(--text);font-size:13px">إضاءة ملونة للقطع — لا تؤثر على الأداء بل على الشكل</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🖥️ دليلك</div>
+  <p>في شراء الحاسوب وقطع التجميعة</p>
+  <p style="margin-top:16px;font-size:12px">صُنع بـ ❤️ للعرب المهتمين بعالم الحاسوب والتقنية</p>
+  <p style="margin-top:8px;font-size:12px">© 2024 دليلك — جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) { e.target.classList.add('show'); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if(t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Card tilt
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width/2;
+      const y = e.clientY - r.top - r.height/2;
+      card.style.transform = `translateY(-6px) rotateX(${-y/20}deg) rotateY(${x/20}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+</script>
+</body>
+</html>
